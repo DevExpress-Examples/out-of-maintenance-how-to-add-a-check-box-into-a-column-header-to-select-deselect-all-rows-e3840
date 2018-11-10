@@ -1,4 +1,4 @@
-﻿<Window Height="400" 
+<Window Height="400" 
 		mc:Ignorable="d" 
 		Width="600" 
 		x:Class="WpfApplication2.MainWindow" 
