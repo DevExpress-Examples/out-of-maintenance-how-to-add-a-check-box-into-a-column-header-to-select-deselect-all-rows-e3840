@@ -3,7 +3,7 @@
 
 * [Converters.cs](./CS/WpfApplication2/Converters.cs) (VB: [Converters.vb](./VB/WpfApplication2/Converters.vb))
 * [MainWindow.xaml](./CS/WpfApplication2/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/WpfApplication2/MainWindow.xaml))
-* [MainWindow.xaml.cs](./CS/WpfApplication2/MainWindow.xaml.cs) (VB: [MainWindow.xaml](./VB/WpfApplication2/MainWindow.xaml))
+* [MainWindow.xaml.cs](./CS/WpfApplication2/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/WpfApplication2/MainWindow.xaml.vb))
 * [ViewModel.cs](./CS/WpfApplication2/ViewModel.cs) (VB: [ViewModel.vb](./VB/WpfApplication2/ViewModel.vb))
 <!-- default file list end -->
 # How to add a check box into a column header to select / deselect all rows
