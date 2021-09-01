@@ -10,6 +10,7 @@ Namespace WpfApplication2
 	''' </summary>
 	Partial Public Class MainWindow
 		Inherits Window
+
 		Private viewModel As ViewModel
 
 		Public Sub New()
@@ -32,9 +33,9 @@ Namespace WpfApplication2
 		End Sub
 
 		Private Function GetIsSelected(ByVal key As Guid) As Boolean
-			Dim isSelected As Boolean
+			Dim isSelected As Boolean = Nothing
 
-			viewModel = CType(Me.DataContext, ViewModel)
+			viewModel = DirectCast(Me.DataContext, ViewModel)
 			If viewModel.SelectedValues.TryGetValue(key, isSelected) Then
 				Return isSelected
 			End If
@@ -63,7 +64,7 @@ Namespace WpfApplication2
 		Private Sub BtnGetSelected_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
 			Dim selectedIds As String = String.Empty
 			For Each key As Guid In viewModel.SelectedValues.Keys
-				selectedIds &= String.Format("{0}" & Constants.vbLf, key)
+				selectedIds &= String.Format("{0}" & vbLf, key)
 			Next key
 
 			Dim caption As String = String.Format("Selected rows (Total: {0})", viewModel.SelectedValues.Count)
@@ -76,7 +77,7 @@ Namespace WpfApplication2
 			End If
 
 			Dim isChecked As Boolean = CBool(e.NewValue)
-			If (Not isChecked) Then
+			If Not isChecked Then
 				For i As Integer = 0 To grid.VisibleRowCount - 1
 					Dim rowHandle As Integer = grid.GetRowHandleByVisibleIndex(i)
 					grid.SetCellValue(rowHandle, "Selected", False)
@@ -94,7 +95,7 @@ Namespace WpfApplication2
 
 		Private Sub view_CellValueChanging(ByVal sender As Object, ByVal e As CellValueChangedEventArgs)
 			If e.Column.FieldName = "Selected" Then
-				CType(sender, TableView).PostEditor()
+				DirectCast(sender, TableView).PostEditor()
 			End If
 		End Sub
 	End Class

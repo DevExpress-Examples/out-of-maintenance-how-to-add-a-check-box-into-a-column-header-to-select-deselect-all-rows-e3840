@@ -1,7 +1,7 @@
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
-Imports System.Collections.ObjectModel
 Imports System.ComponentModel
+Imports System.Collections.ObjectModel
 
 Namespace WpfApplication2
 	Public Class ViewModel
@@ -19,11 +19,14 @@ Namespace WpfApplication2
 
 		Private Sub GenerateData(ByVal objectCount As Integer)
 			For i As Integer = 0 To objectCount - 1
-				List.Add(New TestData() With {.Id = Guid.NewGuid(), .Number = i})
+				List.Add(New TestData() With {
+					.Id = Guid.NewGuid(),
+					.Number = i
+				})
 			Next i
 		End Sub
 
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+		Public Event PropertyChanged As PropertyChangedEventHandler
 		Public Overridable Sub RaisePropertyChanged(ByVal propertyName As String)
 			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 		End Sub

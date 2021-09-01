@@ -1,4 +1,4 @@
-Imports System
+﻿Imports System
 Imports System.Collections
 Imports System.Globalization
 Imports System.Windows.Data
@@ -6,6 +6,7 @@ Imports System.Windows.Data
 Namespace WpfApplication2
 	Public Class CollectionToIsCheckedConverter
 		Implements IMultiValueConverter
+
 		Private dataContext As ViewModel
 
 		Public Function Convert(ByVal values() As Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IMultiValueConverter.Convert
@@ -34,6 +35,7 @@ Namespace WpfApplication2
 
 	Public Class CollectionToIsThreeStateConverter
 		Implements IMultiValueConverter
+
 		Public Function Convert(ByVal values() As Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object Implements IMultiValueConverter.Convert
 			Dim collection As ICollection = TryCast(values(0), ICollection)
 			Dim dataContext As ViewModel = TryCast(values(1), ViewModel)
