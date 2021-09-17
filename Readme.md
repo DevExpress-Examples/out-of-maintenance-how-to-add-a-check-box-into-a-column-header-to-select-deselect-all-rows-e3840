@@ -17,4 +17,4 @@
         <dxg:TableView ... ShowCheckBoxSelectorColumn="True" />
     </dxg:GridControl.View>
 </dxg:GridControl>
-```
+``` 
