@@ -1,70 +1,29 @@
-<Window Height="400" 
-		mc:Ignorable="d" 
-		Width="600" 
-		x:Class="WpfApplication2.MainWindow" 
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
-		xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
-		xmlns:local="clr-namespace:WpfApplication2" 
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Window
+    x:Class="WpfApplication2.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:local="clr-namespace:WpfApplication2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="600"
+    Height="400"
+    mc:Ignorable="d">
 
-	<Window.Resources>
-		<local:CollectionToIsCheckedConverter x:Key="isCheckedConverter" />
-		<local:CollectionToIsThreeStateConverter x:Key="isThreeStateConverter" />
-	</Window.Resources>
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition />
-			</Grid.ColumnDefinitions>
-		
-			<Button Click="BtnInvert_Click" Content="Invert selection" />
-			<Button Grid.Column="1" Click="BtnGetSelected_Click" Content="Get selection" />
+    <dxg:GridControl ItemsSource="{Binding List}" SelectionMode="Row">
+        <dxg:GridColumn FieldName="Id" />
+        <dxg:GridColumn FieldName="Number" />
+        <dxg:GridColumn FieldName="IsChecked" ShowCheckBoxInHeader="True" />
+        <dxg:GridControl.View>
+            <dxg:TableView
+                x:Name="view"
+                AutoWidth="True"
+                ShowCheckBoxSelectorColumn="True" />
+        </dxg:GridControl.View>
+    </dxg:GridControl>
 
-		</Grid>
-
-		<dxg:GridControl Grid.Row="1" Name="grid" ItemsSource="{Binding List}" CustomUnboundColumnData="grid_CustomUnboundColumnData">
-			<dxg:GridControl.Columns>
-				<dxg:GridColumn FieldName="Id" />
-				<dxg:GridColumn FieldName="Number" />
-				<dxg:GridColumn FieldName="Selected" UnboundType="Boolean" AllowSorting="False">
-					<dxg:GridColumn.HeaderTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal">
-								<dxe:CheckEdit Margin="0,0,4,0" EditValueChanged="CheckEdit_EditValueChanged" >
-									<dxe:CheckEdit.IsThreeState>
-										<MultiBinding Mode="OneWay" Converter="{StaticResource isThreeStateConverter}">
-											<Binding Path="DataContext.SelectedValues" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
-											<Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
-										</MultiBinding>
-									</dxe:CheckEdit.IsThreeState>
-									
-									<dxe:CheckEdit.IsChecked>
-										<MultiBinding Mode="OneWay" Converter="{StaticResource isCheckedConverter}">
-											<Binding Path="DataContext.SelectedValues" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
-											<Binding Path="DataContext" RelativeSource="{RelativeSource AncestorType=dxg:GridControl}" />
-										</MultiBinding>
-									</dxe:CheckEdit.IsChecked>
-								</dxe:CheckEdit>
-								<TextBlock Text="{Binding}" VerticalAlignment="Center" />
-							</StackPanel>
-						</DataTemplate>
-					</dxg:GridColumn.HeaderTemplate>
-				</dxg:GridColumn>
-			</dxg:GridControl.Columns>
-
-			<dxg:GridControl.View>
-				<dxg:TableView x:Name="view" AutoWidth="True" CellValueChanging="view_CellValueChanging" />
-			</dxg:GridControl.View>
-		</dxg:GridControl>
-	</Grid>
 </Window>
