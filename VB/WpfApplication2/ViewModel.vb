@@ -1,38 +1,36 @@
 Imports System
-Imports System.Collections.Generic
 Imports System.Collections.ObjectModel
-Imports System.ComponentModel
+Imports DevExpress.Mvvm
 
 Namespace WpfApplication2
-	Public Class ViewModel
-		Implements INotifyPropertyChanged
+    Public Class ViewModel
+        Inherits ViewModelBase
 
-		Public Property List() As ObservableCollection(Of TestData)
-		Public Property SelectedValues() As Dictionary(Of Guid, Boolean)
+        Public Property List() As ObservableCollection(Of TestData)
+            Get
+                Return GetValue(Of ObservableCollection(Of TestData))()
+            End Get
+            Set(value As ObservableCollection(Of TestData))
+                SetValue(value)
+            End Set
+        End Property
 
-		Public Sub New()
-			SelectedValues = New Dictionary(Of Guid, Boolean)()
-			List = New ObservableCollection(Of TestData)()
+        Public Sub New()
+            List = New ObservableCollection(Of TestData)()
+            GenerateData(20)
+        End Sub
 
-			GenerateData(20)
-		End Sub
+        Private Sub GenerateData(ByVal objectCount As Integer)
+            For i As Integer = 0 To objectCount - 1
+                List.Add(New TestData() With {.Id = Guid.NewGuid(), .Number = i})
+            Next i
+        End Sub
+    End Class
 
-		Private Sub GenerateData(ByVal objectCount As Integer)
-			For i As Integer = 0 To objectCount - 1
-				List.Add(New TestData() With {.Id = Guid.NewGuid(), .Number = i})
-			Next i
-		End Sub
-
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-		Public Overridable Sub RaisePropertyChanged(ByVal propertyName As String)
-			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-		End Sub
-	End Class
-
-
-	Public Class TestData
-		Public Property Id() As Guid
-		Public Property Number() As Integer
-	End Class
+    Public Class TestData
+        Public Property Id() As Guid
+        Public Property Number() As Integer
+        Public Property IsChecked() As Boolean
+    End Class
 End Namespace
 
